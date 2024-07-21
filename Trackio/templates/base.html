@@ -1,0 +1,191 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Trackio</title>
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Outfit&amp;display=swap"
+    />
+ <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">    <style>
+      body {
+        font-family: "Outfit", sans-serif;
+        background-color: #121212;
+            color: #e5e0ff;
+      }
+      /* Style for nav bar */
+      nav {
+        background-color: #1f1f1f;
+        border-radius: 30px;
+        padding: 10px;
+        margin-top: 5px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      /* Style for nav brand */
+      nav .nav-brand {
+        color: #e5e0ff;
+        font-size: 24px;
+        margin: 0;
+        padding: auto;
+        letter-spacing: 2px;
+      }
+
+      /* Style for nav items */
+      nav ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      nav ul li {
+        margin: 0 10px;
+      }
+
+      nav ul li a {
+        color: white;
+        text-decoration: none;
+        letter-spacing: 1px;
+      }
+
+      nav ul li a:hover {
+        text-decoration: underline;
+      }
+
+      /* Style for right side items */
+      nav .right-items {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      nav .right-items a {
+        color: white;
+        text-decoration: none;
+        margin-left: 10px;
+      }
+
+      /* Style for container */
+      .container {
+        background-color: #1f1f1f;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px #8ea7e9;
+        max-width: 800px;
+        margin: 10% auto;
+        padding: 20px;
+      }
+
+      /* Style for search bar */
+      .search-container {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 20px;
+      }
+
+      .search-container input[type="text"] {
+        padding: 10px;
+        border-radius: 20px 0 0 20px;
+        border: none;
+        width: 70%;
+        font-size: 16px;
+        outline: none;
+        color: #311952;
+        background-color: #e5e0ff;
+      }
+
+      .search-container button {
+        background-color: #2b1951;
+        color: white;
+        padding: 10px;
+        border-radius: 0 20px 20px 0;
+        border: none;
+        cursor: pointer;
+        font-size: 16px;
+      }
+
+      .search-container button:hover {
+        background-color: #2b1951;
+      }
+
+      /* Style for tracker table */
+      .tracker_table {
+        border-collapse: collapse;
+        width: 100%;
+        margin-bottom: 20px;
+
+      }
+
+      .tracker_table th,
+      .tracker_table td {
+        padding: 10px;
+        text-align: left;
+        border: 1px solid #ddd;
+        color: #e5e0ff;
+      }
+
+      .tracker_table th {
+        background-color: #1f1f1f;
+      }
+
+      .tracker_table a {
+        color: #7286d3;
+        text-decoration: none;
+      }
+
+      .tracker_table a:hover {
+        text-decoration: underline;
+      }
+      .welecome {
+        color: white;
+        padding-right: 5px;
+      }
+      .logout {
+        padding: 8px;
+        background-color: #2b1951;
+        margin: 3px;
+        border-radius: 30px;
+      }
+      .log {
+        margin: 3px;
+        padding: 5px;
+      }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <a href="{% url 'dashboard' %}" style="text-decoration:none;text-underline:none;" class="nav-brand">Trackio</a>
+      <ul>
+        <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
+        <li><a href="{% url 'add_website' %}">Add Website</a></li>
+        {% comment %} <li><a href="{% url 'team' %}">Team</a></li> {% endcomment %}
+        <li><a href="#">Contact Us</a></li>
+      </ul>
+      {% if request.user.is_authenticated %}
+      <div class="right-items">
+        <a href="{%url 'profile'%}" class="welecome">Welcome, {{request.user.username}}</a>
+        <div class="logout">
+          <a href="{% url 'logout' %}" class="log">Logout</a>
+        </div>
+      </div>
+      {% else %}
+      <div class="right-items">
+        <a href="{% url 'login' %}" class="log">Login
+        </a>
+      </div>
+      {% endif %}
+
+    </nav>
+    <div class="container mt-5">
+        {% block content %}
+        {% endblock %}
+    </div>
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/5.0.0-beta3/js/bootstrap.bundle.min.js"></script>
+    
+</body>
+</html>

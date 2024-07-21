@@ -1,0 +1,39 @@
+{% extends 'base.html' %}
+
+{% block title %}Dashboard{% endblock %}
+
+{% block content %}
+    <div>
+      <form action="{% url 'search'%}" method="post">
+        {%csrf_token%}
+        <div class="search-container">
+          <input type="text" name="search" placeholder="Search..." />
+          <button type="submit">Search</button>
+        </div>
+      </form>
+      {% if websites == '<QuerySet []>' %} No websites were found, Add one by <a href="{%url 'add_website'%}">Add Website</a> {% else %}
+      <table class="tracker_table">
+        <thead>
+          <tr>
+            <th>Website Name</th>
+            <th>Website Url</th>
+            <th>Last Updated</th>
+            <th></th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for website in websites%}
+          <tr>
+            <td>{{website.name}}</td>
+            <td>{{website.url}}</td>
+            <td>{{website.last_checked}}</td>
+            <td>
+              <a href="{% url 'delete_website' website.id%}">Delete</a>
+            </td>
+          </tr>
+          {% endfor %}
+        </tbody>
+      </table>
+      {% endif %}
+    </div>
+{% endblock %}

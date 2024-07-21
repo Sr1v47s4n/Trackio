@@ -1,0 +1,14 @@
+{% extends 'base.html' %}
+
+{% block title %}Reset Password{% endblock %}
+
+{% block content %}
+<div>
+  <form action="{% url 'rest_password'%}" method="post">
+    {%csrf_token%}
+    <div class="search-container">
+      <input type="text" name="email" placeholder="example@email.com" />
+      <button type="submit">Send Mail</button>
+    </div>
+  </form>
+  {%endblock%}

@@ -1,0 +1,33 @@
+{% extends 'base.html' %}
+
+{% block title %}Profile{% endblock %}
+
+{% block content %}
+<div class="card_">
+    <div class="card-body_">
+        <h1 class="card-title">Profile</h1>
+        <br>
+
+        <p class="card-text">Username: {{ user.username }}</p>
+        <p class="card-text">Email: {{ user.email }}</p>
+        <form method="post">
+            {% csrf_token %}
+            <div class="form-group">
+                <label for="old_password">Old Password</label><br>
+                <input type="password" class="form-control" id="old_password" name="old_password" required>
+            </div><br>
+            <div class="form-group">
+                <label for="new_password1">New Password</label><br>
+                <input type="password" class="form-control" id="new_password1" name="new_password1" required>
+            </div><br>
+
+            <div class="form-group">
+                <label for="new_password2">Confirm New Password</label><br>
+                <input type="password" class="form-control" id="new_password2" name="new_password2" required>
+            </div>
+            <br>
+            <button type="submit" class="btn btn-primary">Change Password</button>
+        </form>
+    </div>
+</div>
+{% endblock %}
