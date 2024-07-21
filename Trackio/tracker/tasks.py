@@ -38,7 +38,7 @@ def hash_content(content):
 
 class WebsiteChecker:
 
-    def __init__(self, interval=60):  # Default interval set to 24 hours
+    def __init__(self, interval=86400):  # Default interval set to 24 hours
         self.interval = interval
         self.thread = threading.Thread(target=self.run)
         self.stop_event = threading.Event()
