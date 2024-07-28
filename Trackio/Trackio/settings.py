@@ -27,7 +27,11 @@ SECRET_KEY = dotenv.get_key(BASE_DIR / ".env", "SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = dotenv.get_key(BASE_DIR / ".env", "DEBUG") == "True"
 
-ALLOWED_HOSTS = dotenv.get_key(BASE_DIR / ".env", "ALLOWED_HOSTS").split(",")
+ALLOWED_HOSTS = ["13.201.120.103","trackio.sr1v47s4n.me"]
+
+CSRF_TRUSTED_ORIGINS = [
+    "13.201.120.103", "https://trackio.sr1v47s4n.me",
+]
 
 
 # Application definition
@@ -146,3 +150,5 @@ EMAIL_USE_SSL = False  # Set to True if using SSL
 EMAIL_HOST_USER =  dotenv.get_key(BASE_DIR / ".env", "EMAIL_HOST_USER")  # Your email address
 EMAIL_HOST_PASSWORD = dotenv.get_key(BASE_DIR / ".env", "EMAIL_HOST_PASSWORD")  # Your email password
 DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
+
+csrf_cookie_name = "csrftoken"

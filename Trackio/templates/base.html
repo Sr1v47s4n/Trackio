@@ -158,14 +158,16 @@
   </head>
   <body>
     <nav>
-      <a href="{% url 'dashboard' %}" style="text-decoration:none;text-underline:none;" class="nav-brand">Trackio</a>
+      <a href="/" style="text-decoration:none;text-underline:none;" class="nav-brand">Trackio</a>
+      {% if request.user.is_authenticated %}
+      
       <ul>
+
         <li><a href="{% url 'dashboard' %}">Dashboard</a></li>
         <li><a href="{% url 'add_website' %}">Add Website</a></li>
         {% comment %} <li><a href="{% url 'team' %}">Team</a></li> {% endcomment %}
         <li><a href="#">Contact Us</a></li>
       </ul>
-      {% if request.user.is_authenticated %}
       <div class="right-items">
         <a href="{%url 'profile'%}" class="welecome">Welcome, {{request.user.username}}</a>
         <div class="logout">
