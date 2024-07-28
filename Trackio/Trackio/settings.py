@@ -27,10 +27,11 @@ SECRET_KEY = dotenv.get_key(BASE_DIR / ".env", "SECRET_KEY")
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = dotenv.get_key(BASE_DIR / ".env", "DEBUG") == "True"
 
-ALLOWED_HOSTS = ["13.201.120.103","trackio.sr1v47s4n.me"]
+ALLOWED_HOSTS = ["*"]
 
 CSRF_TRUSTED_ORIGINS = [
-    "13.201.120.103", "https://trackio.sr1v47s4n.me",
+    "http://13.201.120.103",
+    "https://trackio.sr1v47s4n.me/",
 ]
 
 
