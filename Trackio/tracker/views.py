@@ -10,6 +10,8 @@ from django.conf import settings
 from django.core.mail import send_mail
 from django.contrib.auth.models import User
 from django.db.models import Q
+# import csrf_protect 
+from django.views.decorators.csrf import csrf_protect
 
 
 def send_alert_email(subject, message, recipient_list):
@@ -54,7 +56,7 @@ def hash_content(content):
 #                     recipient_list=[website.user.email],
 #                 )
 
-
+@csrf_protect
 def signup(request):
     if request.method == "POST":
         username = request.POST.get("username")
@@ -73,7 +75,7 @@ def signup(request):
     # else:
     #     return render(request, "signup.html")
     return render(request, "signup.html")
-
+@csrf_protect
 def login_usr(request):
     if request.user.is_authenticated:
         return redirect("dashboard")
@@ -97,14 +99,14 @@ def logout_usr(request):
     return redirect("login")
 
 
-@login_required
+@login_required(login_url="/login")
 def dashboard(request):
     websites = Website.objects.filter(user=request.user)
     # check_website_changes()
     return render(request, "dashboard.html", {"websites": websites})
 
-
-@login_required
+@csrf_protect
+@login_required(login_url="/login")
 def add_website(request):
     try:
         if request.method == "POST":
@@ -180,12 +182,25 @@ def add_website(request):
 
 @login_required
 def profile(request):
+    if request.method == "POST":
+        user = request.user
+        cpass = request.POST.get("old_password")
+        npass1 = request.POST.get("new_password1")
+        npass2 = request.POST.get("new_password2")
+        if npass1 != npass2:
+            messages.error(request, "Passwords do not match.")
+            return redirect("profile")
+        if not user.check_password(cpass):
+            messages.error(request, "Incorrect password.")
+            return redirect("profile")
     return render(request, "profile.html")
 
 
 def home(request):
+    if request.user.is_authenticated:
+        return redirect("dashboard")
     return render(request, "home.html")
-
+@csrf_protect
 def reset_password(request):
     if request.method == "POST":
         email = request.POST.get("email")
@@ -231,7 +246,7 @@ def reset_password(request):
             messages.error(request, 'No user is associated with this email address.')
             return redirect('login')
     return render(request, "reset_password.html")
-
+@csrf_protect
 def reset_password_confirmation(request,token):
     try:
         token = PasswordResetToken.objects.get(token=token)
