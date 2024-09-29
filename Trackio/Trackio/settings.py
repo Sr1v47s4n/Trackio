@@ -30,8 +30,9 @@ DEBUG = dotenv.get_key(BASE_DIR / ".env", "DEBUG") == "True"
 ALLOWED_HOSTS = ["*"]
 
 CSRF_TRUSTED_ORIGINS = [
-    "http://13.201.120.103",
+    "http://43.204.43.154",
     "https://trackio.sr1v47s4n.me/",
+    "http://trackio.sr1v47s4n.me/",
 ]
 
 
